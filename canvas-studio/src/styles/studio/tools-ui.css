@@ -1,0 +1,196 @@
+/* app/studio/tools-ui.css */
+
+.tool-sidebar {
+    width: 320px;
+    background: rgba(5, 5, 8, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px 24px;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.tool-section-title {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+/* Visual Card Pattern */
+.visual-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.visual-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+    width: 100%;
+}
+
+.visual-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.visual-card.active {
+    background: rgba(14, 165, 233, 0.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.15);
+}
+
+.visual-card-graphic {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: var(--bg-tertiary);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.visual-card-graphic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.visual-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.visual-card-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.visual-card-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.3;
+}
+
+/* Slider Overhaul */
+.premium-slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.premium-slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.premium-slider-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.premium-slider-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(14, 165, 233, 0.1);
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.premium-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    outline: none;
+}
+
+.premium-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--accent-glow);
+    transition: all 0.2s;
+}
+
+.premium-range::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+/* Layout for tool pages */
+.tool-page-container {
+    display: flex;
+    height: calc(100vh - 72px);
+    /* height minus header */
+    width: 100%;
+    overflow: hidden;
+}
+
+.tool-content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: var(--bg-primary);
+}
+
+.tool-preview-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    overflow: hidden;
+    background-image: radial-gradient(circle at 50% 50%, #11111a 0%, #050508 100%);
+}
+
+.tool-bottom-bar {
+    padding: 24px 32px;
+    background: rgba(5, 5, 8, 0.6);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    z-index: 20;
+}
+
+.tool-prompt-input-group {
+    display: flex;
+    gap: 12px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+}

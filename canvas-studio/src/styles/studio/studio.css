@@ -1,0 +1,677 @@
+/* app/studio/studio.css */
+
+.studio-main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background-color: var(--bg-primary);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Header */
+.studio-header {
+    padding: 24px 32px;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--border);
+    background: rgba(5, 5, 8, 0.6);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+}
+
+.studio-title-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.studio-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    background: rgba(14, 165, 233, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 12px rgba(14, 165, 233, 0.05);
+}
+
+.studio-title-area h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+}
+
+.studio-title-area p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* Scroll Area & Grid */
+.studio-grid-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px;
+    background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.03) 0%, transparent 50%);
+}
+
+.studio-grid-scroll-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.studio-grid-scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.studio-grid-scroll-area::-webkit-scrollbar-thumb {
+    background: var(--bg-active);
+    border-radius: 4px;
+}
+
+.studio-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    align-content: start;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.studio-grid-item {
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.studio-grid-item.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 10, 15, 0.4);
+    border: 1px dashed var(--border-strong);
+}
+
+.studio-grid-item.empty .empty-icon {
+    color: var(--text-muted);
+    opacity: 0.3;
+}
+
+.studio-grid-item.filled {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.studio-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.studio-grid-item.filled:hover .studio-image {
+    transform: scale(1.05);
+}
+
+/* Hover Overlay */
+.studio-item-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+}
+
+.studio-grid-item.filled:hover .studio-item-overlay {
+    opacity: 1;
+}
+
+.item-prompt {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.item-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.item-actions button {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.item-actions button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.item-actions button.delete-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.5);
+    color: #fca5a5;
+}
+
+/* Bottom Panel Controls */
+.studio-bottom-panel {
+    padding: 24px;
+    background: linear-gradient(to top, var(--bg-primary) 50%, transparent);
+    pointer-events: none;
+    /* Let clicks pass through gradient */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.studio-controls-wrapper {
+    width: 100%;
+    max-width: 800px;
+    background: rgba(18, 18, 28, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    pointer-events: auto;
+    /* Re-enable clicks for the panel itself */
+}
+
+.studio-prompt-container {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.prompt-image-preview {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1.5px solid var(--accent);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+    animation: previewSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prompt-image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-preview-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.remove-preview-btn:hover {
+    background: var(--error);
+    transform: scale(1.1);
+}
+
+@keyframes previewSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.studio-prompt-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 15px;
+    outline: none;
+}
+
+.studio-prompt-input::placeholder {
+    color: var(--text-muted);
+}
+
+.studio-options-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+}
+
+.studio-model-selector {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 8px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.studio-model-selector:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.model-chevron {
+    color: var(--text-muted);
+}
+
+.studio-dropdown {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 0;
+    background: rgba(15, 15, 25, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    padding: 8px;
+    min-width: 220px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    z-index: 100;
+    animation: dropdownReveal 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: bottom left;
+}
+
+.studio-dropdown.mini {
+    min-width: 100px;
+    width: max-content;
+}
+
+@keyframes dropdownReveal {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.dropdown-item {
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.dropdown-item:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.dropdown-item.active {
+    background: rgba(14, 165, 233, 0.1);
+    color: var(--accent);
+}
+
+.studio-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: transparent;
+    transition: all 0.2s;
+    user-select: none;
+    position: relative;
+    /* Anchor for absolute dropdowns */
+}
+
+.studio-option-btn.active,
+.studio-option-btn:not(.icon-only):hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+}
+
+.studio-option-btn.icon-only {
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.studio-option-btn.icon-only:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+}
+
+.studio-option-btn.dashed-border {
+    border: 1px dashed var(--border-strong);
+    padding: 7px 13px;
+    cursor: pointer;
+}
+
+.studio-option-btn.dashed-border:hover {
+    border-color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.studio-option-btn.has-image {
+    border-style: solid;
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(14, 165, 233, 0.05);
+}
+
+.studio-generate-btn {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    border: none;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.studio-generate-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.15);
+    background: #e2e8f0;
+}
+
+.studio-generate-btn:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.prompt-image-preview.unsupported {
+    border-color: var(--error);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.prompt-image-preview.unsupported img {
+    filter: grayscale(1) opacity(0.5);
+}
+
+.unsupported-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.unsupported-overlay span {
+    font-size: 8px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+}
+
+.item-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 12px;
+}
+
+.capability-tag {
+    font-size: 9px;
+    font-weight: 700;
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.studio-option-btn.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.studio-option-btn.disabled:hover {
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.studio-generate-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.spin-animation {
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Lightbox */
+.studio-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    /* Center the frame again */
+    justify-content: center;
+    padding: 20px;
+    cursor: zoom-out;
+    overflow: hidden;
+    /* No background scroll */
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    background: #08080c;
+    /* Unified frame background */
+    border-radius: 20px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-strong);
+    cursor: default;
+    max-height: 95vh;
+    /* Ensure it fits the screen */
+    max-width: 90vw;
+    overflow: hidden;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s;
+}
+
+.lightbox-close:hover {
+    background: rgba(239, 68, 68, 0.8);
+    transform: scale(1.1);
+}
+
+.lightbox-img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    background: transparent;
+    display: block;
+    flex: 1;
+    /* Allow image to shrink if frame height is constrained */
+    min-height: 0;
+}
+
+.lightbox-info {
+    padding: 32px;
+    background: rgba(10, 10, 15, 0.4);
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.lightbox-thumb-container {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+.lightbox-thumb-box {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.lightbox-thumb-label {
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    z-index: 5;
+}
+
+.lightbox-thumb-img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+.lightbox-prompt {
+    font-size: 14px;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.lightbox-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.lightbox-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.lightbox-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.lightbox-btn.primary {
+    background: rgba(14, 165, 233, 0.15);
+    border-color: rgba(14, 165, 233, 0.3);
+    color: var(--accent);
+}
+
+.lightbox-btn.primary:hover {
+    background: var(--accent);
+    color: white;
+}
